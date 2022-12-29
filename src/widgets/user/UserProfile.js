@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Row,
@@ -15,21 +15,26 @@ import {
 
 import PageTitle from "../../components/common/PageTitle";
 
-import { api, path } from "../../services";
+import { api, AuthService, path } from "../../services";
 
 export default function UserProfile() {
   const [user, setUser] = useState({ loading: true, error: "", data: {} });
 
+useEffect(()=>getUser(),[] )
+
+ const getUser=()=>{
+  const user=AuthService.getProfile()
   api
-    .all(path.profile)
-    .then(res => {
-      // console.log(res.data)
-      setUser({ loading: false, error: "", data: res.data });
-    })
-    .catch(err => {
-      setUser({ loading: false, error: `${err}` });
-      console.log(err);
-    });
+  .get(user.id,path.profile)
+  .then(res => {
+    // console.log(res)
+    setUser({ loading: false, error: "", data: res });
+  })
+  .catch(err => {
+    setUser({ loading: false, error: `${err}` });
+    console.log(err);
+  });
+ }
 
   return user.loading ? (
     <div
@@ -89,78 +94,39 @@ export default function UserProfile() {
                             onChange={() => {}}
                           />
                         </Col>
-                      </Row>
-                      <Row form>
-                        {/* Email */}
                         <Col md="6" className="form-group">
-                          <label htmlFor="feEmail">Email</label>
+                          <label >Phone Number</label>
                           <FormInput
-                            type="email"
-                            id="feEmail"
-                            placeholder="Email Address"
-                            value={user.data.email}
+                            value={user.data.phone}
                             onChange={() => {}}
-                            autoComplete="email"
                           />
                         </Col>
-                        {/* Password */}
+
                         <Col md="6" className="form-group">
-                          <label htmlFor="fePassword">Password</label>
+                          <label>Email</label>
                           <FormInput
-                            type="password"
-                            id="fePassword"
-                            placeholder="Password"
-                            value={user.data.password}
+                            value={user.data.email}
                             onChange={() => {}}
-                            autoComplete="current-password"
+                          />
+                        </Col>
+
+                        <Col md="6" className="form-group">
+                          <label>Gender</label>
+                          <FormInput
+                            value={user.data.gender}
+                            onChange={() => {}}
+                          />
+                        </Col>
+
+                        <Col md="6" className="form-group">
+                          <label>User Name</label>
+                          <FormInput
+                            value={user.data.username}
+                            onChange={() => {}}
                           />
                         </Col>
                       </Row>
 
-                      <Row form>
-                        {/* City */}
-                        <Col md="6" className="form-group">
-                          <label htmlFor="role">Role</label>
-                          <FormInput
-                            disabled
-                            id="frole"
-                            placeholder="Role"
-                            value={user.data.userRole}
-                            onChange={() => {}}
-                          />
-                        </Col>
-                        <Col md="6" className="form-group">
-                          <label htmlFor="totalTransactions">
-                            Total Transactions
-                          </label>
-                          <FormInput
-                            id="totalTransactions"
-                            placeholder="Total Transactions"
-                            value={user.data.totalTransaction}
-                            onChange={() => {}}
-                          />
-                        </Col>
-                        <Col md="6" className="form-group">
-                          <label htmlFor="totalDataUsage">
-                            Total Data Usage
-                          </label>
-                          <FormInput
-                            id="totalDataUsage"
-                            placeholder="Total Data Usage"
-                            value={user.data.totalDataUsage}
-                            onChange={() => {}}
-                          />
-                        </Col>
-                        <Col md="6" className="form-group">
-                          <label htmlFor="state">Current State</label>
-                          <FormInput
-                            id="state"
-                            placeholder="Current State"
-                            value={user.data.current_state}
-                            onChange={() => {}}
-                          />
-                        </Col>
-                      </Row>
                       <Row form>
                         {/* Description */}
                         <Col md="12" className="form-group">
@@ -171,6 +137,9 @@ export default function UserProfile() {
                             value={user.data.discussion}
                           />
                         </Col>
+
+                       
+
                       </Row>
                       <Button
                         theme="success"

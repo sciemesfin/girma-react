@@ -9,8 +9,10 @@ const api = {
     return Request.post(`${API_ROOT}${path}/logout-user`);
   },
   get(id, path, filter) {
-    const q = filter ? `?filter=${JSON.stringify(filter)}` : "";
-    return Request.get(`${API_ROOT}${path}/${id}${q}`);
+    const token=AuthService.getAccessToken();
+    return Request.get(`${API_ROOT}${path}?id=${id}`,{ headers: {
+      "x-access-token": token,
+    },});
   },
   all(path, filter) {
     const token=AuthService.getAccessToken();
