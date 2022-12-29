@@ -7,7 +7,6 @@ import {
   CardHeader,
   CardBody,
   NavLink,
-  Badge,
   InputGroup,
   InputGroupAddon,
   InputGroupText,
@@ -15,8 +14,7 @@ import {
   CardFooter,
   Button
 } from "shards-react";
-
-import { NavLink as RouteNavLink } from "react-router-dom";
+import { Link, NavLink as RouteNavLink } from "react-router-dom";
 import { api, path } from "../../services";
 import formatter from "../../utils/formatter";
 import notify from "../../utils/notify";
@@ -50,10 +48,9 @@ const UserList = () => {
   const deleteUser = id => {
     // console.log(id);
     api
-      .remove(id, "/users")
+      .remove(id,path.users)
       .then(res => {
-        const data = item.data.filter(f => f.id !== id);
-        setItem({ ...item, data: data });
+       getUsers()
         notify.success("User Deleted successfully.");
       })
       .catch(err => notify.error("Unable to delete user. Try again"));
@@ -101,7 +98,9 @@ const UserList = () => {
                     </InputGroup>
                   </div>
                   <div className="d-flex mx-2">
+                  <NavLink tag={RouteNavLink} to="/add/user">
                     <Button onClick={() => {}}>ADD USER</Button>
+                    </NavLink>
                   </div>
                 </div>
               </CardHeader>

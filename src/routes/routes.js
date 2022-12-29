@@ -39,10 +39,9 @@ export default [
     restricted: true
   },
   {
-    path: "/signup",
-    layout: DefaultLayout,
+    path: "/add/user",
+    layout:SecondaryLayout,
     component: Signup,
-    restricted: true
   },
 
   {
