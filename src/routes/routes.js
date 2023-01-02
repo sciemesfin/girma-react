@@ -16,6 +16,7 @@ import User from "../widgets/user/User";
 import items from "../widgets/items/items";
 import UserList from "../widgets/user/UserList";
 import addItem from "../widgets/items/AddItem";
+import Requests from "../widgets/requests/requests";
 
 export default [
   {
@@ -54,7 +55,11 @@ export default [
     layout: SecondaryLayout,
     component: items
   },
-
+  {
+    path: "/requests",
+    layout: SecondaryLayout,
+    component: Requests
+  },
   {
     path: "/add/item",
     layout: SecondaryLayout,

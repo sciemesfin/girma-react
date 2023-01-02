@@ -23,7 +23,7 @@ import { api, AuthService, path } from "../../services";
 import { NavLink as RouteNavLink } from "react-router-dom";
 import notify from "../../utils/notify";
 
-const Items = () => {
+const Requests = () => {
   const [item, setItem] = useState({ loading: false, data: [], error: "" });
   const [selectedItems, setSelectedItems] = useState([]);
   const cols = [
@@ -57,18 +57,9 @@ const Items = () => {
       .catch(err => console.log(err));
   };
 
-  const deleteItem = id => {
-    api
-      .remove(id, path.deleteItem)
-      .then(() => {
-        notify.success("Item deleted successfully.");
-        getItems();
-      })
-      .catch(() => notify.error("Unable to delete item"));
-  };
 
 
-  const requestItem=async arg=>{
+  const returnItem=async arg=>{
     const usr=await AuthService.getProfile()
  
     api.create({
@@ -107,12 +98,10 @@ const Items = () => {
             <Card small className="mb-4">
               <CardHeader className="border-bottom">
                 <Row style={{alignItems:'center',justifyContent:"space-between"}}>
-                  <Col xs="12" md="3">
-                    <h6 className="m-0 d-none d-md-block h5">
-                     Items
-                    </h6>
+                  <Col xs="12" md="3" className="d-none d-md-block h5">
+                   Items
                   </Col>
-                  <Col xs="7" md="4">
+                  <Col xs="12" md="4">
                     <InputGroup seamless>
                       <InputGroupAddon type="prepend">
                         <InputGroupText style={{ marginLeft: 10 }}>
@@ -125,11 +114,7 @@ const Items = () => {
                       />
                     </InputGroup>
                   </Col>
-                  <Col xs="5" md="2">
-                    <NavLink tag={RouteNavLink} to="/add/item">
-                      <Button>ADD ITEM</Button>
-                    </NavLink>
-                  </Col>
+                 
                 </Row>
               </CardHeader>
               {/* large screen view  */}
@@ -169,16 +154,10 @@ const Items = () => {
                         <td>
                         <div className="flex">
                         <Button
-                            onClick={() => requestItem(x)}
+                            onClick={() => returnItem(x)}
                             theme="primary" className="mr-2"
                           >
-                          Request
-                          </Button>
-                          <Button
-                            onClick={() => deleteItem(x.id)}
-                            theme="danger"
-                          >
-                            Delete
+                          Return
                           </Button>
                         </div>
                         </td>
@@ -244,8 +223,8 @@ const Items = () => {
                     <tr>
                       <td>Action</td>
                       <td>
-                        <Button theme="danger" onClick={() => deleteItem(x.id)}>
-                          Delete
+                        <Button theme="success" onClick={() => returnItem(x.id)}>
+                        Return
                         </Button>
                       </td>
                     </tr>
@@ -270,4 +249,4 @@ const Items = () => {
   );
 };
 
-export default Items;
+export default Requests
