@@ -132,9 +132,32 @@ export default function Signup() {
                         onChange={e => setUser({...user,gender:e.target.value})}
                        >
                         <option value="">Select</option>
-                        <option value="Banker">Male</option>
-                        <option value="Broker">Female</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
                       </FormSelect>
+                    </FormGroup>
+                  </Col>
+
+
+                  <Col xs="12" md="6">
+                    <FormGroup>
+                      <label>User role</label>
+                      <FormSelect
+                        onChange={e => setUser({...user,roles:[e.target.value]})}
+                       >
+                        <option value="">Select</option>
+                        <option value="Banker">Admin</option>
+                        <option value="Broker">User</option>
+                      </FormSelect>
+                    </FormGroup>
+                  </Col>
+
+                  <Col xs="12" md="6">
+                    <FormGroup>
+                      <label>Address</label>
+                      <FormInput placeholder="Enter user address"
+                       onChange={e => setUser({...user,address:e.target.value})}
+                        value={user.address} />
                     </FormGroup>
                   </Col>
 

@@ -57,18 +57,19 @@ const Requests = () => {
       .catch(err => console.log(err));
   };
 
-
-
-  const returnItem=async arg=>{
-    const usr=await AuthService.getProfile()
- 
-    api.create({
-      userId:usr.id,
-      itemId:arg.id,
-    },path.addRequest)
-    .then(res=>notify.success("Request sent successfully."))
-    .catch(()=>notify.error("Unable to place an item request"))
-  }
+  const returnItem = async arg => {
+    const usr = await AuthService.getProfile();
+    api
+      .create(
+        {
+          userId: usr.id,
+          itemId: arg.id
+        },
+        path.addRequest
+      )
+      .then(res => notify.success("Item returned successfully."))
+      .catch(() => notify.error("Unable to retrun an item"));
+  };
 
   return item.loading ? (
     <div
@@ -97,9 +98,14 @@ const Requests = () => {
           <Col>
             <Card small className="mb-4">
               <CardHeader className="border-bottom">
-                <Row style={{alignItems:'center',justifyContent:"space-between"}}>
+                <Row
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "space-between"
+                  }}
+                >
                   <Col xs="12" md="3" className="d-none d-md-block h5">
-                   Items
+                    Items
                   </Col>
                   <Col xs="12" md="4">
                     <InputGroup seamless>
@@ -114,7 +120,6 @@ const Requests = () => {
                       />
                     </InputGroup>
                   </Col>
-                 
                 </Row>
               </CardHeader>
               {/* large screen view  */}
@@ -147,19 +152,18 @@ const Requests = () => {
                         <td>{x.type} </td>
                         <td>{x.quantity} </td>
                         <td>{formatter.currency(x.cost)} </td>
-                        <td>
-                        {x.status}
-                        </td>
+                        <td>{x.status}</td>
                         <td> {formatter.intToDate(x.createdAt)}</td>
                         <td>
-                        <div className="flex">
-                        <Button
-                            onClick={() => returnItem(x)}
-                            theme="primary" className="mr-2"
-                          >
-                          Return
-                          </Button>
-                        </div>
+                          <div className="flex">
+                            <Button
+                              onClick={() => returnItem(x)}
+                              theme="primary"
+                              className="mr-2"
+                            >
+                              Return
+                            </Button>
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -223,8 +227,11 @@ const Requests = () => {
                     <tr>
                       <td>Action</td>
                       <td>
-                        <Button theme="success" onClick={() => returnItem(x.id)}>
-                        Return
+                        <Button
+                          theme="success"
+                          onClick={() => returnItem(x.id)}
+                        >
+                          Return
                         </Button>
                       </td>
                     </tr>
@@ -249,4 +256,4 @@ const Requests = () => {
   );
 };
 
-export default Requests
+export default Requests;
