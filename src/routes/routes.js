@@ -17,6 +17,10 @@ import items from "../widgets/items/items";
 import UserList from "../widgets/user/UserList";
 import addItem from "../widgets/items/AddItem";
 import Requests from "../widgets/requests/requests";
+import CategoryList from "../widgets/category/CategoryList";
+import AddCategory from "../widgets/category/AddCategory";
+import SubcategoryList from "../widgets/category/SubcategoryList";
+import AddSubcategory from "../widgets/category/AddSubcategory";
 
 export default [
   {
@@ -54,6 +58,26 @@ export default [
     path: "/items",
     layout: SecondaryLayout,
     component: items
+  },
+  {
+    path: "/categories",
+    layout: SecondaryLayout,
+    component: CategoryList
+  },
+  {
+    path: "/category/create",
+    layout: SecondaryLayout,
+    component: AddCategory
+  },
+  {
+    path: "/subcategories",
+    layout: SecondaryLayout,
+    component: SubcategoryList
+  },
+  {
+    path: "/subcategory/create",
+    layout: SecondaryLayout,
+    component: AddSubcategory
   },
   {
     path: "/requests",

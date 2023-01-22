@@ -7,8 +7,18 @@ export default function() {
       htmlAfter: ""
     },
     {
+      title: "Category",
+      htmlBefore: '<i class="material-icons">list</i>',
+      to: "/categories"
+    },
+    {
+      title: "Subcategory",
+      htmlBefore: '<i class="material-icons">list</i>',
+      to: "/subcategories"
+    },
+    {
       title: "Items",
-      htmlBefore: '<i class="material-icons">notifications</i>',
+      htmlBefore: '<i class="material-icons">layers</i>',
       to: "/items"
     },
     {

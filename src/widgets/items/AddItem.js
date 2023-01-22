@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -25,20 +25,56 @@ export default function addItem() {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const [item, setItem] = useState({});
+
+  const [category, setCategory] = useState({
+    loading: true,
+    error: "",
+    data: []
+  });
+  const [subcategory, setSubcategory] = useState({
+    loading: true,
+    error: "",
+    data: []
+  });
+
+  useEffect(() => {
+    getCategories();
+    getSubategories();
+  }, []);
+
+  const getCategories = () => {
+    api
+      .all(path.categories)
+      .then(res =>
+        setCategory({ ...category, loading: false, error: "", data: res })
+      )
+      .catch(err => console.log(err));
+  };
+
+  const getSubategories = () => {
+    api
+      .all(path.subcateories)
+      .then(res =>
+        setSubcategory({ ...subcategory, loading: false, error: "", data: res })
+      )
+      .catch(err => console.log(err));
+  };
+
   function submit() {
     setLoading(true);
     // console.log(item)
 
-    api.create(item, path.addItem)
+    api
+      .create(item, path.addItem)
       .then(res => {
-        notify.success("item added successfull.")
-        history.push("/items")
-        setLoading(false)
+        notify.success("item added successfull.");
+        history.push("/items");
+        setLoading(false);
       })
       .catch(e => {
-        setLoading(false)
-        notify.error("Error")
-      })
+        setLoading(false);
+        notify.error("Error");
+      });
   }
 
   return (
@@ -106,6 +142,30 @@ export default function addItem() {
                     </FormGroup>
                   </Col>
 
+                  <Col xs="12" md="6">
+                    <FormGroup>
+                      <label>Category</label>
+                      <FormSelect
+                        onChange={e => setItem({...item,categoryId:e.target.value})}
+                       >
+                        <option value="">Select</option>
+                        {category.data &&category.data.map((x,i)=><option value={x.id}> {x.title} </option>)}
+                      </FormSelect>
+                    </FormGroup>
+                  </Col>
+
+                  <Col xs="12" md="6">
+                    <FormGroup>
+                      <label>Subcategory</label>
+                      <FormSelect
+                        onChange={e => setItem({...item,subcategoryId:e.target.value})}
+                       >
+                        <option value="">Select</option>
+                        {subcategory.data &&subcategory.data.map((x,i)=><option value={x.id}> {x.title} </option>)}
+                      </FormSelect>
+                    </FormGroup>
+                  </Col>
+
                   <Col xs="12" md="4">
                     <FormGroup>
                       <label>Quantity</label>
@@ -148,19 +208,16 @@ export default function addItem() {
                   </Col>
 
                   <Col xs="12">
-                  <label htmlFor="feDescription">Description</label>
-                          <FormTextarea
-                            id="feDescription"
-                            rows="5"
-                            value={item.discussion}
-                            onChange={e =>
-                                setItem({ ...item, description: e.target.value })
-                              }
-                          />
+                    <label htmlFor="feDescription">Description</label>
+                    <FormTextarea
+                      id="feDescription"
+                      rows="5"
+                      value={item.discussion}
+                      onChange={e =>
+                        setItem({ ...item, description: e.target.value })
+                      }
+                    />
                   </Col>
-
-
-
 
                   <Col xs="12">
                     <div style={{ marginTop: 15 }}>
