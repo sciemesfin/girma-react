@@ -16,7 +16,7 @@ import {
 import { useHistory } from "react-router-dom";
 import formValidator from "../../utils/formValidator";
 import formatter from "../../utils/formatter";
-import { api, path } from "../../services";
+import { api, AuthService, path } from "../../services";
 import encryption from "../../utils/encryption";
 import notify from "../../utils/notify";
 import Loading from "react-loader-spinner";
@@ -25,6 +25,7 @@ export default function addItem() {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const [item, setItem] = useState({});
+
 
   const [category, setCategory] = useState({
     loading: true,
@@ -63,9 +64,9 @@ export default function addItem() {
   function submit() {
     setLoading(true);
     // console.log(item)
-
+  const user=AuthService.getProfile()
     api
-      .create(item, path.addItem)
+      .create({...item,userId:user.id}, path.addItem)
       .then(res => {
         notify.success("item added successfull.");
         history.push("/items");

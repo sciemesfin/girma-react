@@ -127,9 +127,7 @@ const UserList = () => {
                             color: "#007bff"
                           }}
                         >
-                          <NavLink tag={RouteNavLink} to={`/user/${x.email}`}>
-                            {x.username}
-                          </NavLink>
+                         {x.username}
                         </td>
                         <td>{x.idNumber} </td>
                         <td>{x.firstName} </td>

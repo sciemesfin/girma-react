@@ -29,6 +29,8 @@ const Items = () => {
   const cols = [
     "#",
     "Item Name",
+    "Category",
+    "Subcategory",
     "Item Model",
     "Inventory Code",
     "Type",
@@ -150,6 +152,8 @@ const Items = () => {
                       <tr key={i}>
                         <td>{i + 1}</td>
                         <td>{x.itemName} </td>
+                        <td>{x.category&&x.category.title?x.category.title:"Unknown"} </td>
+                        <td>{x.subcategory&&x.subcategory.title?x.category.title:"Unknown"} </td>
                         <td
                           style={{
                             cursor: "pointer",

@@ -80,7 +80,7 @@ export default function User() {
                           <FormInput
                             id="feFirstName"
                             placeholder="First Name"
-                            value={user.data.firstName}
+                            value={user.data&&user.data.firstName?user.data.firstName:""}
                             onChange={() => {}}
                           />
                         </Col>
@@ -90,7 +90,7 @@ export default function User() {
                           <FormInput
                             id="feLastName"
                             placeholder="Last Name"
-                            value={user.data.lastName}
+                            value={user.data&&user.data.lastName?user.data.lastName:""}
                             onChange={() => {}}
                           />
                         </Col>
@@ -103,7 +103,7 @@ export default function User() {
                             type="email"
                             id="feEmail"
                             placeholder="Email Address"
-                            value={user.data.email}
+                            value={user.data&&user.data.email?user.data.email:""}
                             onChange={() => {}}
                             autoComplete="email"
                           />
@@ -115,7 +115,7 @@ export default function User() {
                             type="password"
                             id="fePassword"
                             placeholder="Password"
-                            value={user.data.password}
+                            value={user.data&&user.data.password?user.data.password:""}
                             onChange={() => {}}
                             autoComplete="current-password"
                           />
@@ -130,41 +130,13 @@ export default function User() {
                             disabled
                             id="frole"
                             placeholder="Role"
-                            value={user.data.userRole}
+                            // value={user.data.userRole}
+                            value={user.data&&user.data.userRole?user.data.userRole:""}
                             onChange={() => {}}
                           />
                         </Col>
-                        <Col md="6" className="form-group">
-                          <label htmlFor="totalTransactions">
-                            Total Transactions
-                          </label>
-                          <FormInput
-                            id="totalTransactions"
-                            placeholder="Total Transactions"
-                            value={user.data.totalTransaction}
-                            onChange={() => {}}
-                          />
-                        </Col>
-                        <Col md="6" className="form-group">
-                          <label htmlFor="totalDataUsage">
-                            Total Data Usage
-                          </label>
-                          <FormInput
-                            id="totalDataUsage"
-                            placeholder="Total Data Usage"
-                            value={user.data.totalDataUsage}
-                            onChange={() => {}}
-                          />
-                        </Col>
-                        <Col md="6" className="form-group">
-                          <label htmlFor="state">Current State</label>
-                          <FormInput
-                            id="state"
-                            placeholder="Current State"
-                            value={user.data.current_state}
-                            onChange={() => {}}
-                          />
-                        </Col>
+                       
+                      
                       </Row>
                       <Row form>
                         {/* Description */}
@@ -173,7 +145,7 @@ export default function User() {
                           <FormTextarea
                             id="feDescription"
                             rows="5"
-                            value={user.data.discussion}
+                            value={user.data.description}
                           />
                         </Col>
                       </Row>

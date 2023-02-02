@@ -146,9 +146,9 @@ export default function Signup() {
                         onChange={e => setUser({...user,roles:[e.target.value]})}
                        >
                         <option value="">Select</option>
-                        <option value="Admin">Admin</option>
-                        <option value="User">User</option>
-                        <option value="Staff">Staff</option>
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                        <option value="staff">Staff</option>
                       </FormSelect>
                     </FormGroup>
                   </Col>
