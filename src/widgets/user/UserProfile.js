@@ -24,6 +24,7 @@ useEffect(()=>getUser(),[] )
 
  const getUser=()=>{
   const user=AuthService.getProfile()
+
   api
   .get(user.id,path.profile)
   .then(res => {

@@ -14,7 +14,6 @@ import {
 } from "shards-react";
 import { useHistory } from "react-router-dom";
 import { api, path } from "../../services";
-import encryption from "../../utils/encryption";
 import notify from "../../utils/notify";
 import Loading from "react-loader-spinner";
 
@@ -26,11 +25,7 @@ export default function Signup() {
     password: "",address:"",idNumber:"",username:""
   })
 
-  const [isValid, setValid] = useState({
-    bankEmail: true, state: true, city: true,
-    firstName: true, lastName: true, phoneNumber: true, personalEmail: true,
-    category: true, password: true, cPassword: true
-  })
+
  
 
   function submit() {

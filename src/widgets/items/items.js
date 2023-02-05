@@ -24,6 +24,11 @@ import { NavLink as RouteNavLink } from "react-router-dom";
 import notify from "../../utils/notify";
 
 const Items = () => {
+  const usr = AuthService.getProfile();
+  const roles=usr?usr.roles:[]
+ const canAddItem=roles.includes("ROLE_STAFF") ||roles.includes("ROLE_ADMIN")
+ const canRequestItem=roles.includes("ROLE_USER")||roles.includes("ROLE_ADMIN")
+
   const [item, setItem] = useState({ loading: false, data: [], error: "" });
   const [selectedItems, setSelectedItems] = useState([]);
   const cols = [
@@ -127,11 +132,11 @@ const Items = () => {
                       />
                     </InputGroup>
                   </Col>
-                  <Col xs="5" md="2">
+                 {canAddItem && <Col xs="5" md="2">
                     <NavLink tag={RouteNavLink} to="/add/item">
                       <Button>ADD ITEM</Button>
                     </NavLink>
-                  </Col>
+                  </Col>}
                 </Row>
               </CardHeader>
               {/* large screen view  */}
@@ -172,12 +177,12 @@ const Items = () => {
                         <td> {formatter.intToDate(x.createdAt)}</td>
                         <td>
                         <div className="flex">
-                        <Button
+                       {canRequestItem&& <Button
                             onClick={() => requestItem(x)}
                             theme="primary" className="mr-2"
                           >
                           Request
-                          </Button>
+                          </Button>}
                           <Button
                             onClick={() => deleteItem(x.id)}
                             theme="danger"

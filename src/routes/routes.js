@@ -21,6 +21,10 @@ import CategoryList from "../widgets/category/CategoryList";
 import AddCategory from "../widgets/category/AddCategory";
 import SubcategoryList from "../widgets/category/SubcategoryList";
 import AddSubcategory from "../widgets/category/AddSubcategory";
+import { AuthService } from "../services";
+
+const user = AuthService.getProfile();
+const roles =user? user.roles:[];
 
 export default [
   {
@@ -45,8 +49,8 @@ export default [
   },
   {
     path: "/add/user",
-    layout:SecondaryLayout,
-    component: Signup,
+    layout: SecondaryLayout,
+    component: Signup
   },
 
   {
@@ -62,43 +66,50 @@ export default [
   {
     path: "/categories",
     layout: SecondaryLayout,
-    component: CategoryList
+    component: CategoryList,
+    hidden: roles.includes("ROLE_USER")
   },
   {
     path: "/category/create",
     layout: SecondaryLayout,
-    component: AddCategory
+    component: AddCategory,
+    hidden: roles.includes("ROLE_USER")
   },
   {
     path: "/subcategories",
     layout: SecondaryLayout,
-    component: SubcategoryList
+    component: SubcategoryList,
+    hidden: roles.includes("ROLE_USER")
   },
   {
     path: "/subcategory/create",
     layout: SecondaryLayout,
-    component: AddSubcategory
+    component: AddSubcategory,
+    hidden: roles.includes("ROLE_USER")
   },
   {
     path: "/requests",
     layout: SecondaryLayout,
-    component: Requests
+    component: Requests,
   },
   {
     path: "/add/item",
     layout: SecondaryLayout,
-    component: addItem
+    component: addItem,
+    hidden: roles.includes("ROLE_USER")
   },
   {
     path: "/users",
     layout: SecondaryLayout,
-    component: UserList
+    component: UserList,
+    hidden: roles.includes("ROLE_USER") ||  roles.includes("ROLE_STAFF")
   },
 
   {
     path: "/user/:id",
     layout: SecondaryLayout,
-    component: User
+    component: User,
+    hidden: roles.includes("ROLE_USER") ||  roles.includes("ROLE_STAFF")
   },
 
   {

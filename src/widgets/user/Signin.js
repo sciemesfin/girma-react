@@ -26,7 +26,8 @@ export default function Signin() {
     AuthService.login(user)
       .then(() => {
         setLoading(false);
-        history.push("/app");
+        window.location.reload(false)
+        history.push("/items");
         notify.success("Successfully Signed In");
       })
       .catch(e => {
